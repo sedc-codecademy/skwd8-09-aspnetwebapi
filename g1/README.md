@@ -1,11 +1,11 @@
 # ASP.NET WebAPI 📕
-**This subject is focused on the ASP.NET framework again, but on a different type of application, an API applicaiton. Throughout this subject we would combine all the knowledge of the previous subjects and to build a dynamic Web API. It is required to have basic understanding of the ASP.NET Framework, Entity Framework basics, C# core features and SQL basics. With that in mind we will learn:**
+**This subject is focused on the ASP.NET framework again, but on a different type of application, an API application. Throughout this subject, we would combine all the knowledge of the previous subjects and build a dynamic Web API. It is required to have a basic understanding of the ASP.NET Framework, Entity Framework basics, C# core features, and SQL basics. With that in mind we will learn:**
 * How to create and implement ASP.NET WebAPI projects
 * How to handle requests through an API web application
 * How to communicate with the database with different frameworks
 * How HTTP communication works
-* How to secure an API web applicaiton
-* How to biild an end-to-end WebAPI solution
+* How to secure an API web application
+* How to build an end-to-end WebAPI solution
 
 ## This Repository
 This repository will contain every piece of material about the subject. It will include:
