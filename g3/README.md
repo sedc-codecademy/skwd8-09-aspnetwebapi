@@ -24,6 +24,6 @@ This repository will contain every piece of material about the subject. It will 
 * [GitHub repository of a real world WebAPI project](https://github.com/GaProgMan/dwCheckApi)
 
 ## Contact
-Trainer: Trainer@mail.com
+Trainer: dblazheski96@gmail.com
 
-Assistant: assistant@mail.com
+Assistant: fjanev14@gmail.com
