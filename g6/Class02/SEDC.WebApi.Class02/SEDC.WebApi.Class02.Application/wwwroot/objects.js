@@ -11,9 +11,9 @@ let getAllTagsInput = document.getElementById("input4");
 let getTagByIdInput1 = document.getElementById("input51");
 let getTagByIdInput2 = document.getElementById("input52");
 
-let port = "44371";
+let port = "49568";
 let getAllNotes = async () => {
-    let url = "https://localhost:" + port + "/api/noteobjects";
+    let url = "http://localhost:" + port + "/api/noteobjects";
 
     let response = await fetch(url);
     let data = await response.json();
@@ -21,7 +21,7 @@ let getAllNotes = async () => {
 };
 
 let getNoteById = async () => {
-    let url = "https://localhost:" + port + "/api/noteobjects/" + getByIdInput.value;
+    let url = "http://localhost:" + port + "/api/noteobjects/" + getByIdInput.value;
 
     let response = await fetch(url);
     let data = await response.text();
@@ -29,7 +29,7 @@ let getNoteById = async () => {
 };
 
 let addNote = async () => {
-    let url = "https://localhost:" + port + "/api/noteobjects";
+    let url = "http://localhost:" + port + "/api/noteobjects";
     let getTags = (str) => str.split(",").reduce(function (x, y, index) {
         let values = y.trim().split("-");
         x.push({ name: values[0], color: values[1] });
@@ -47,7 +47,7 @@ let addNote = async () => {
 }
 
 let getAllTags = async () => {
-    let url = "https://localhost:" + port + "/api/noteobjects/" + getAllTagsInput.value + "/tags";
+    let url = "http://localhost:" + port + "/api/noteobjects/" + getAllTagsInput.value + "/tags";
 
     let response = await fetch(url);
     try {
@@ -60,7 +60,7 @@ let getAllTags = async () => {
 };
 
 let getTagById = async () => {
-    let url = "https://localhost:" + port + "/api/noteobjects/" + getTagByIdInput1.value + "/tags/" + getTagByIdInput2.value;
+    let url = "http://localhost:" + port + "/api/noteobjects/" + getTagByIdInput1.value + "/tags/" + getTagByIdInput2.value;
 
     let response = await fetch(url);
     let data = await response.json();
