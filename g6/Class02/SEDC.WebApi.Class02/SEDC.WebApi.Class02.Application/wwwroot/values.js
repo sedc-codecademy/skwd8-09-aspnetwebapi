@@ -6,9 +6,9 @@ let getTagByIdBtn = document.getElementById("btn5");
 let getByIdInput = document.getElementById("input2");
 let addNoteInput = document.getElementById("input3");
 
-let port = "44371";
+let port = "49568";
 let getAllNotes = async () => {
-    let url = "https://localhost:" + port + "/api/notes";
+    let url = "http://localhost:" + port + "/api/notes";
 
     let response = await fetch(url);
     let data = await response.json();
@@ -16,7 +16,7 @@ let getAllNotes = async () => {
 };
 
 let getNoteById = async () => {
-    let url = "https://localhost:" + port + "/api/notes/" + getByIdInput.value;
+    let url = "http://localhost:" + port + "/api/notes/" + getByIdInput.value;
 
     let response = await fetch(url);
     let data = await response.text();
@@ -24,7 +24,7 @@ let getNoteById = async () => {
 };
 
 let addNote = async () => {
-    let url = "https://localhost:" + port + "/api/notes";
+    let url = "http://localhost:" + port + "/api/notes";
     await fetch(url, {
         method: 'POST',
         headers: {

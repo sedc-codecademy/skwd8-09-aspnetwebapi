@@ -35,6 +35,10 @@ namespace SEDC.WebApi.Class02.Application
                 app.UseDeveloperExceptionPage();
             }
 
+            // These commands are needed to use static files
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseMvc();
         }
     }
