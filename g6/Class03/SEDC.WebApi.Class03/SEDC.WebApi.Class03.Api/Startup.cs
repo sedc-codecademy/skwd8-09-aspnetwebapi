@@ -25,6 +25,21 @@ namespace SEDC.WebApi.Class03.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "V1";
+                    document.Info.Title = "SEDC Notes api";
+                    document.Info.Description = "This is our first notes api";
+                    document.Info.Contact = new NSwag.OpenApiContact
+                    {
+                        Name = "Trajan Stevkovski",
+                        Email = "trajanstevkovski@gmail.com"
+                    };
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +49,9 @@ namespace SEDC.WebApi.Class03.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseMvc();
         }

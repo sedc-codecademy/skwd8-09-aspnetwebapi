@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SEDC.WebApi.Class03.Api.Models;
 using SEDC.WebApi.Class03.Api.Models.DtoModels;
 using System;
@@ -34,6 +35,42 @@ namespace SEDC.WebApi.Class03.Api.Controllers
             }
         };
 
+        /// <summary>
+        /// Gets all notes from DB
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult<List<Note>> Get()
+        {
+            return Ok(notes);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Note), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Note> GetById(int id)
+        {
+            try
+            {
+                return Ok(notes[id - 1]);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound("No note with that id");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"BROKEN REQUEST: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Gets notes with paging
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [HttpGet("get-paging")]
         public ActionResult<List<Note>> GetAllPaging(int page, int pageSize)
         {
@@ -43,6 +80,11 @@ namespace SEDC.WebApi.Class03.Api.Controllers
             return Ok(notesPaged);
         }
 
+        /// <summary>
+        /// Gets notes with paging
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet("get-paging1")]
         public ActionResult<List<Note>> GetAllPaging1([FromQuery]GetPagingRouteParams request)
         {
@@ -69,10 +111,13 @@ namespace SEDC.WebApi.Class03.Api.Controllers
         }
     
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult Post([FromBody]Note request)
         {
             notes.Add(request);
-            return Ok(request);
+            return Created(
+                $"http://localhost:61925/api/notes/{notes.Count}",
+                notes[notes.Count - 1]);
         }
 
         [HttpPost("post-note")]
