@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SEDC.WebApi.Class03.Api.Models;
+using SEDC.WebApi.Class03.Api.Models.DtoModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,39 @@ namespace SEDC.WebApi.Class03.Api.Controllers
                 }
             }
         };
+
+        [HttpGet("get-paging")]
+        public ActionResult<List<Note>> GetAllPaging(int page, int pageSize)
+        {
+            var request = Request;
+            var notesPaged = notes.Skip(page * pageSize).Take(pageSize).ToList();
+
+            return Ok(notesPaged);
+        }
+
+        [HttpGet("get-paging1")]
+        public ActionResult<List<Note>> GetAllPaging1([FromQuery]GetPagingRouteParams request)
+        {
+            //debug only
+            var request1 = Request;
+
+            if (!request.IncludeTags)
+            {
+                var notePage = notes
+                    .Skip(request.Page * request.PageSize)
+                    .Take(request.PageSize)
+                    .Select(x => new Note { Color = x.Color, Text = x.Text, Tags = new List<Tag>() })
+                    .ToList();
+
+                return Ok(notePage);
+            }
+
+            var notesPaged = notes
+                .Skip(request.Page * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
+
+            return Ok(notesPaged);
+        }
     }
 }
