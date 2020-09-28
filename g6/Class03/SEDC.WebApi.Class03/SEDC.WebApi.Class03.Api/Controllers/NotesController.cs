@@ -67,5 +67,51 @@ namespace SEDC.WebApi.Class03.Api.Controllers
 
             return Ok(notesPaged);
         }
+    
+        [HttpPost]
+        public ActionResult Post([FromBody]Note request)
+        {
+            notes.Add(request);
+            return Ok(request);
+        }
+
+        [HttpPost("post-note")]
+        public ActionResult<List<Note>> Post1([FromBody]Note note, [FromQuery]GetPagingRouteParams query)
+        {
+            notes.Add(note);
+
+            var notess = notes
+                .Skip(query.Page * query.PageSize)
+                .Take(query.PageSize)
+                .ToList();
+
+            return Ok(notess);
+        }
+
+        [HttpGet("from-header-host")]
+        public ActionResult<string> GetHeader([FromHeader]string host)
+        {
+            return Ok($"You are accessing from {host}");
+        }
+
+        [HttpGet("from-header-lang")]
+        public ActionResult<string> GetHeader1(
+            [FromHeader(Name = "Accept-Language")]string lang,
+            [FromHeader]string host)
+        {
+            if (lang == "mk-MK")
+            {
+                return Ok($"Пристапувате до хост {host}");
+            }
+
+            return Ok($"You are accessing from {host}");
+        }
+
+        [HttpPost("post-from-form")]
+        public ActionResult PostFromForm([FromForm]Note note)
+        {
+            notes.Add(note);
+            return Ok(note);
+        }
     }
 }
