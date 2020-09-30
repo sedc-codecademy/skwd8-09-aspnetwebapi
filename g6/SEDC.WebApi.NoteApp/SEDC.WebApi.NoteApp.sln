@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.Api", "SEDC.WebApi.NoteApp.Api\SEDC.WebApi.NoteApp.Api.csproj", "{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.DataModel", "SEDC.WebApi.NoteApp.DataModel\SEDC.WebApi.NoteApp.DataModel.csproj", "{EBC420BA-4864-4AA5-B4D3-14CB18128C83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

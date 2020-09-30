@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SEDC.WebApi.NoteApp.DataModels\SEDC.WebApi.NoteApp.DataModels.csproj" />
+    <ProjectReference Include="..\SEDC.WebApi.NoteApp.DataModel\SEDC.WebApi.NoteApp.DataModel.csproj" />
   </ItemGroup>
 
 </Project>
