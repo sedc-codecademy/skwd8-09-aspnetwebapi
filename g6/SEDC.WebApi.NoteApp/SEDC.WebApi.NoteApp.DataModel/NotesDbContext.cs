@@ -56,6 +56,8 @@ namespace SEDC.WebApi.NoteApp.DataModel
                 .WithMany(p => p.Notes)
                 .HasForeignKey(p => p.UserId);
 
+            Seed(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
 

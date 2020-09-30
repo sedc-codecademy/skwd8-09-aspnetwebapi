@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SEDC.WebApi.NoteApp.Services.Helpers;
 
 namespace SEDC.WebApi.NoteApp.Api
 {
@@ -24,6 +25,12 @@ namespace SEDC.WebApi.NoteApp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // get connection string
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            // register data access dependencies
+            DiModule.RegisterModule(services, connectionString);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
