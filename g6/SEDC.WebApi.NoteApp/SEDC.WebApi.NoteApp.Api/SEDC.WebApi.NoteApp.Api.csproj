@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>43c0bd07-e031-4aca-8e39-eb801fd6f21b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.WebApi.NoteApp.Models\SEDC.WebApi.NoteApp.Models.csproj" />
+    <ProjectReference Include="..\SEDC.WebApi.NoteApp.Services\SEDC.WebApi.NoteApp.Services.csproj" />
+  </ItemGroup>
+
+</Project>
