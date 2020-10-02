@@ -14,9 +14,11 @@ Be creative and overengineer stuff
 
 ### Q&A
 Q: What is MVP?
+
 A: [MVP is]
 
 Q: Do we need to create our own database?
+
 A: Yes, you need to create the database on your own. The approach that you want to take is all up to you. Meaning that we do not mind if is code first or database first.
 
 Suggestion for models:
