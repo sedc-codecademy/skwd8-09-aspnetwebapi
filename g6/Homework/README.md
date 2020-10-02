@@ -26,7 +26,9 @@ User, Task
 * Task is already defined class in System.Threding.Tasks so use Todo as the name of the class.
 
 The models that you suggested are good but we need for every Task to have subtasks. 
+
 example: 
+
 Task: Create Todo Application
 Subtasks:
 * Reaserch and consult with client - in progress
