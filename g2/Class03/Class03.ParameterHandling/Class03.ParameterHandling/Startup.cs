@@ -26,6 +26,8 @@ namespace Class03.ParameterHandling
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,14 @@ namespace Class03.ParameterHandling
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "My API version 1");
+                x.RoutePrefix = string.Empty;
+            });
+
             app.UseMvc();
         }
     }
