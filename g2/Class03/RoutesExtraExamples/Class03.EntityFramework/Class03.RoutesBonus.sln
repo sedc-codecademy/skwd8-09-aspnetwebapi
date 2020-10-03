@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class03.RoutesBonus", "Class03.EntityFramework\Class03.RoutesBonus.csproj", "{41476989-D78C-466E-A2D3-7A8225D2412D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41476989-D78C-466E-A2D3-7A8225D2412D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41476989-D78C-466E-A2D3-7A8225D2412D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41476989-D78C-466E-A2D3-7A8225D2412D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41476989-D78C-466E-A2D3-7A8225D2412D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68C83269-C66D-46D0-A631-1735C9674E72}
+	EndGlobalSection
+EndGlobal
