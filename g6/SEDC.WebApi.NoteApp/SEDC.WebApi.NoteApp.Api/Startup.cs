@@ -35,6 +35,7 @@ namespace SEDC.WebApi.NoteApp.Api
 
             // service registration
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INoteService, NoteService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
