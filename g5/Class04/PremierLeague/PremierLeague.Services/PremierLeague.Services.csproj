@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PremierLeague.DataAccess\PremierLeague.DataAccess.csproj" />
+    <ProjectReference Include="..\PremierLeague.PresentationLayer\PremierLeague.PresentationLayer.csproj" />
+    <ProjectReference Include="..\PremierLeague.Repositories\PremierLeague.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

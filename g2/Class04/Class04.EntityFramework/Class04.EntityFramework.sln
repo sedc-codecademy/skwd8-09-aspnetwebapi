@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class04.EntityFramework", "Class04.EntityFramework\Class04.EntityFramework.csproj", "{7EA1463E-B152-4058-BE1C-523AFF44477B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class04.EntityFramework.DataModels", "Class04.EntityFramework.DataModels\Class04.EntityFramework.DataModels.csproj", "{0B9C04E9-EEFA-4CC4-B95F-73ADBB774128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EA1463E-B152-4058-BE1C-523AFF44477B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA1463E-B152-4058-BE1C-523AFF44477B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA1463E-B152-4058-BE1C-523AFF44477B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA1463E-B152-4058-BE1C-523AFF44477B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B9C04E9-EEFA-4CC4-B95F-73ADBB774128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B9C04E9-EEFA-4CC4-B95F-73ADBB774128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B9C04E9-EEFA-4CC4-B95F-73ADBB774128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B9C04E9-EEFA-4CC4-B95F-73ADBB774128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C801A905-B628-4980-82BD-64836F08432D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.NoteApp.DataModels\SEDC.NoteApp.DataModels.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PremierLeague.WEBAPI", "PremierLeague.WEBAPI\PremierLeague.WEBAPI.csproj", "{E78A77A1-FC49-434A-B827-4AC03ABDB2B6}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PremierLeague.Database", "PremierLeague.Database\PremierLeague.Database.sqlproj", "{D08CB51B-6F2D-4351-969A-381AAE97933F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PremierLeague.DataAccess", "PremierLeague.DataAccess\PremierLeague.DataAccess.csproj", "{AEFE62CA-0D83-43E4-9B0B-F1075AFC161C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PremierLeague.Repositories", "PremierLeague.Repositories\PremierLeague.Repositories.csproj", "{5028383E-67A5-4CC1-A03A-CDDCF51D662A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PremierLeague.Services", "PremierLeague.Services\PremierLeague.Services.csproj", "{B9D7FA53-8AF3-408C-B1E7-0CC765885517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PremierLeague.PresentationLayer", "PremierLeague.PresentationLayer\PremierLeague.PresentationLayer.csproj", "{BE027A67-473C-48F6-81FD-2C6356FE2FE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E78A77A1-FC49-434A-B827-4AC03ABDB2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78A77A1-FC49-434A-B827-4AC03ABDB2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78A77A1-FC49-434A-B827-4AC03ABDB2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78A77A1-FC49-434A-B827-4AC03ABDB2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08CB51B-6F2D-4351-969A-381AAE97933F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AEFE62CA-0D83-43E4-9B0B-F1075AFC161C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFE62CA-0D83-43E4-9B0B-F1075AFC161C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFE62CA-0D83-43E4-9B0B-F1075AFC161C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFE62CA-0D83-43E4-9B0B-F1075AFC161C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5028383E-67A5-4CC1-A03A-CDDCF51D662A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5028383E-67A5-4CC1-A03A-CDDCF51D662A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5028383E-67A5-4CC1-A03A-CDDCF51D662A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5028383E-67A5-4CC1-A03A-CDDCF51D662A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D7FA53-8AF3-408C-B1E7-0CC765885517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D7FA53-8AF3-408C-B1E7-0CC765885517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D7FA53-8AF3-408C-B1E7-0CC765885517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D7FA53-8AF3-408C-B1E7-0CC765885517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE027A67-473C-48F6-81FD-2C6356FE2FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE027A67-473C-48F6-81FD-2C6356FE2FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE027A67-473C-48F6-81FD-2C6356FE2FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE027A67-473C-48F6-81FD-2C6356FE2FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C59F871-8E35-4F0C-A048-0D6D11FC2112}
+	EndGlobalSection
+EndGlobal
