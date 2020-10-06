@@ -13,7 +13,8 @@ namespace PremierLeague.DataAccess.PremierLeague.DataAccess.DbAccess
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [MaxLength(100)]
+
+        [MaxLength(100)] public string FullName => $"{FirstName} {LastName}";
         public bool? IsActive { get; set; }
         public string City { get; set; }
         public int? Age { get; set; }

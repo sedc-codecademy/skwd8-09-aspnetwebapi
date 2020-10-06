@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using PremierLeague.PresentationLayer.Responses;
+using PremierLeague.Services.Services.Interfaces;
 
 namespace PremierLeague.WebApi.Controllers
 {
@@ -7,10 +9,17 @@ namespace PremierLeague.WebApi.Controllers
     [ApiController]
     public class TeamController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<string>> GetAllTeams()
+        private readonly ITeamService _teamService;
+
+        public TeamController(ITeamService teamService)
         {
-            return Ok("we are here");
+            _teamService = teamService;
+        }
+
+        [HttpGet]
+        public ActionResult<List<TeamResponseModel>> GetAllTeams()
+        {
+            return _teamService.GetAllTeams();
         }
     }
 }

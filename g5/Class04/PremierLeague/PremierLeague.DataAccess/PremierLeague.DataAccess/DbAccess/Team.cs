@@ -15,7 +15,6 @@ namespace PremierLeague.DataAccess.PremierLeague.DataAccess.DbAccess
         public string City { get; set; }
         public int? TitlesWon { get; set; }
         public int CoachId { get; set; }
-
         public Coach CoachNavigation { get; set; }
         public ICollection<Player> Player { get; set; }
     }

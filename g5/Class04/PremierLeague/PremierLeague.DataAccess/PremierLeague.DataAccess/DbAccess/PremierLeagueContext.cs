@@ -23,7 +23,7 @@ namespace PremierLeague.DataAccess.PremierLeague.DataAccess.DbAccess
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=PremierLeague;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=PremierLeague.Database;Trusted_Connection=True;");
             }
         }
 
@@ -46,6 +46,7 @@ namespace PremierLeague.DataAccess.PremierLeague.DataAccess.DbAccess
                 entity.HasOne(c => c.Team)
                     .WithOne(t => t.CoachNavigation)
                     .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey<Coach>(x => x.TeamId)
                     .HasConstraintName("FK_Coach_TeamID");
             });
 
@@ -93,6 +94,7 @@ namespace PremierLeague.DataAccess.PremierLeague.DataAccess.DbAccess
                 entity.HasOne(t => t.CoachNavigation)
                     .WithOne(c => c.Team)
                     .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey<Team>(x => x.CoachId)
                     .HasConstraintName("FK_Team_CoachID");
             });
         }
