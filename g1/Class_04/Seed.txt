@@ -1,0 +1,89 @@
+public void Seed(ModelBuilder modelBuilder)
+{
+	modelBuilder.Entity<User>()
+		.HasData(
+			new User()
+			{
+				Id = 1,
+				FirstName = "Bob"
+				LastName = "Bobsky"
+				UserName = "bob007",
+				Password = "12345"
+			},
+			new User()
+			{
+				Id = 2,
+				FirstName = "Rob"
+				LastName = "Robsky"
+				UserName = "R.R",
+				Password = "67890"
+			},
+			new User()
+			{
+				Id = 3,
+				FirstName = "James"
+				LastName = "Bond"
+				UserName = "Bond",
+				Password = "BondJamesBond"
+			},
+		);
+	modelBuilder.Entity<Note>()
+		.HasData(
+			new Note()
+			{
+				Id = 1,
+				Text = "Buy Juice",
+				Color = "blue",
+				Tag = 3,
+				UserId = 1
+			},
+			new Note()
+			{
+				Id = 2,
+				Text = "Learn ASP.NET Core WebApi",
+				Color = "red",
+				Tag = 1,
+				UserId = 1
+			},
+			new Note()
+			{
+				Id = 3,
+				Text = "Ask for raise",
+				Color = "green",
+				Tag = 2,
+				UserId = 2
+			},
+			new Note()
+			{
+				Id = 4,
+				Text = "Do the dishes",
+				Color = "white",
+				Tag = 4,
+				UserId = 1
+			},
+			new Note()
+			{
+				Id = 5,
+				Text = "Do the laundry",
+				Color = "black",
+				Tag = 4,
+				UserId = 2
+			},
+			new Note()
+			{
+				Id = 6,
+				Text = "Call Rob",
+				Color = "orange",
+				Tag = 3,
+				UserId = 1
+			},
+			new Note()
+			{
+				Id = 7,
+				Text = "Save the world!",
+				Color = "yellow",
+				Tag = 2,
+				UserId = 3
+			},
+		);
+}	
