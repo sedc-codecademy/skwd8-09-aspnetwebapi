@@ -9,11 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SEDC.WebApi.NoteApp.Services;
-using SEDC.WebApi.NoteApp.Services.Helpers;
-using SEDC.WebApi.NoteApp.Services.Interfaces;
+using SEDC.NotesApp.Helpers;
 
-namespace SEDC.WebApi.NoteApp.Api
+namespace SEDC.NotesApp
 {
     public class Startup
     {
@@ -27,16 +25,16 @@ namespace SEDC.WebApi.NoteApp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // get connection string
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var appConfig = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appConfig);
 
-            // register data access dependencies
-            DiModule.RegisterModule(services, connectionString);
-
-            // service registration
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<INoteService, NoteService>();
-
+            AppSettings appSettings = appConfig.Get<AppSettings>();
+            string connectionString = appSettings.ConnectionString;
+           
+            DependencyInjectionHelper.InjectDbContext(services);
+           // DependencyInjectionHelper.InjectAdoRepositories(services, connectionString);
+            DependencyInjectionHelper.InjectDapperRepositories(services, connectionString);
+            DependencyInjectionHelper.InjectServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
