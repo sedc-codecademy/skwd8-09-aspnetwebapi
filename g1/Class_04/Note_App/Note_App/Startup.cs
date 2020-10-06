@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Services.Helpers;
 
 namespace Note_App
 {
@@ -26,6 +27,11 @@ namespace Note_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // get connection string from app settings json file
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            DIModule.RegisterModule(services, connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
