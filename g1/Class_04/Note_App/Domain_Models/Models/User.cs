@@ -10,12 +10,16 @@ namespace Domain_Models.Models
     public class User
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [MaxLength(50)]
         public string FirstName { get; set; }
+        [MaxLength(50)]
         public string LastName { get; set; }
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
         [Required]
+        [MinLength(3)]
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
