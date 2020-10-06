@@ -12,7 +12,7 @@ namespace PremierLeague.Services.Services
 {
     public class TeamService : ITeamService
     {
-        private IRepository<Team> _teamRepository;
+        private readonly IRepository<Team> _teamRepository;
         public TeamService(IRepository<Team> teamRepository)
         {
             _teamRepository = teamRepository;

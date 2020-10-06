@@ -5,15 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PremierLeague.WEBAPI.Controllers
+namespace PremierLeague.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        public ActionResult<List<string>> GetAllPlayers()
-        {
-            return Ok();
-        }
     }
 }
