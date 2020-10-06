@@ -17,7 +17,10 @@ namespace PremierLeague.Repositories.Repositories
         }
         public IEnumerable<Team> GetAll()
         {
-            return _dbContext.Team.Include(x => x.CoachNavigation).Include(x => x.Player);
+            return _dbContext.Team
+                .Include(x => x.CoachNavigation)
+                .Include(x => x.Player)
+                .Where(x => x.Name.Contains("Liver") && x.City.StartsWith("L") && x.CoachNavigation != null && (x.CoachNavigation.FirstName == "Jur" || x.CoachNavigation.Age < 70) && x.Player.Any()).ToList();
         }
 
         public Team GetById(int id)
