@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PremierLeague.DataAccess\PremierLeague.DataAccess.csproj" />
+    <ProjectReference Include="..\PremierLeague.PresentationLayer\PremierLeague.PresentationLayer.csproj" />
+    <ProjectReference Include="..\PremierLeague.Repositories\PremierLeague.Repositories.csproj" />
+    <ProjectReference Include="..\PremierLeague.Services\PremierLeague.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
