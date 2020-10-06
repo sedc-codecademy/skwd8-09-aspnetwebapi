@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DbAccess\" />
+    <Compile Remove="DbAccess\**" />
+    <EmbeddedResource Remove="DbAccess\**" />
+    <None Remove="DbAccess\**" />
   </ItemGroup>
 
   <ItemGroup>
