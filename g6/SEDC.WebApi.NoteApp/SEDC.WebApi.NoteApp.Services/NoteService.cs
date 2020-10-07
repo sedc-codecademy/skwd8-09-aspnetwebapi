@@ -61,17 +61,52 @@ namespace SEDC.WebApi.NoteApp.Services
 
         public void DeleteNote(int id, int userId)
         {
-            throw new System.NotImplementedException();
+            var note = _noteRepository
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id && x.UserId == userId);
+
+            if(note == null)
+            {
+                throw new NoteException("Note with that id does not exists");
+            }
+
+            _noteRepository.Remove(note);
         }
 
         public NoteDto GetNote(int id, int userId)
         {
-            throw new System.NotImplementedException();
+            var note = _noteRepository
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            
+            if (note == null)
+            {
+                throw new NoteException("Not exists");
+            }
+
+            return new NoteDto
+            {
+                Color = note.Color,
+                Id = note.Id,
+                Tag = (TagType)note.Tag,
+                Text = note.Text,
+                UserId = note.UserId
+            };
         }
 
         public IEnumerable<NoteDto> GetUserNotes(int userId)
         {
-            throw new System.NotImplementedException();
+            return _noteRepository
+                .GetAll()
+                .Where(x => x.UserId == userId)
+                .Select(x => new NoteDto
+                {
+                    Color = x.Color,
+                    Id = x.Id,
+                    Tag = (TagType)x.Tag,
+                    Text = x.Text,
+                    UserId = x.UserId
+                });
         }
     }
 }

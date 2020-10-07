@@ -25,7 +25,7 @@ namespace SEDC.WebApi.NoteApp.DataAccess.Adonet
 
             command.Connection = connection;
 
-            command.CommandText = "SELECT * FROM dbo.[User]";
+            command.CommandText = "SELECT * FROM dbo.[Users]";
 
             SqlDataReader dataReader = command.ExecuteReader();
 
@@ -82,12 +82,12 @@ namespace SEDC.WebApi.NoteApp.DataAccess.Adonet
 
                     // bad way
                     //cmd.CommandText = 
-                    //    $"INSERT INTO dbo.[User] (Username, Password, FirstName, LastName)" +
+                    //    $"INSERT INTO dbo.[Users] (Username, Password, FirstName, LastName)" +
                     //    $" VALUES({entity.Username}, {entity.Password}, {entity.FirstName}, {entity.LastName})";
 
 
                     cmd.CommandText = 
-                        $"INSERT INTO dbo.[User] (Username, Password, FirstName, LastName)" +
+                        $"INSERT INTO dbo.[Users] (Username, Password, FirstName, LastName)" +
                         $" VALUES(@userUsername, @userPassword, @userFirstName, @userLastName)";
                     cmd.Parameters.AddWithValue("@userUsername", entity.Username);
                     cmd.Parameters.AddWithValue("@userPassword", entity.Password);
@@ -110,7 +110,7 @@ namespace SEDC.WebApi.NoteApp.DataAccess.Adonet
 
             cmd.Connection = connection;
 
-            cmd.CommandText = "DELETE FROM dbo.[User] WHERE Id = @id";
+            cmd.CommandText = "DELETE FROM dbo.[Users] WHERE Id = @id";
             cmd.Parameters.AddWithValue("@id", entity.Id);
 
             cmd.ExecuteNonQuery();
@@ -127,7 +127,7 @@ namespace SEDC.WebApi.NoteApp.DataAccess.Adonet
             SqlCommand cmd = new SqlCommand();
 
             cmd.Connection = connection;
-            cmd.CommandText = "UPDATE dbo.[User] " +
+            cmd.CommandText = "UPDATE dbo.[Users] " +
                 "SET Username = @userUsername, Password = @userPassword, FirstName = @userFirstName, LastName = @userLastName" +
                 "WHERE Id = @id";
             cmd.Parameters.AddWithValue("@userUsername", entity.Username);
