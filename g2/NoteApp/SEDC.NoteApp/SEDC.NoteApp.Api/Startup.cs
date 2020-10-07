@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SEDC.NoteApp.Services;
 using SEDC.NoteApp.Services.Helpers;
 
 namespace SEDC.NoteApp.Api
@@ -28,7 +29,22 @@ namespace SEDC.NoteApp.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            DIModule.RegisterModule(services);
+            //Options pattern implementation
+            //Configure AppSettings section
+            var appConfig = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appConfig);
+
+            //Using AppSettings
+            var appSettings = appConfig.Get<AppSettings>();
+            string connectionString = appSettings.NoteAppConnectionString;
+
+
+            //Read a value from the configuration file appSettings.json
+            //string hosts = Configuration.GetValue<string>("AllowedHosts");
+
+
+            DIModule.RegisterModule(services, connectionString);
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
