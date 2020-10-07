@@ -19,7 +19,7 @@ namespace SEDC.WebApi.NoteApp.DataModel
             // USER
             modelBuilder
                 .Entity<User>()
-                .ToTable(nameof(User))
+                .ToTable("Users")
                 .HasKey(p => p.Id);
 
             modelBuilder
@@ -37,7 +37,7 @@ namespace SEDC.WebApi.NoteApp.DataModel
             // NOTE
             modelBuilder
                 .Entity<Note>()
-                .ToTable(nameof(Note))
+                .ToTable("Notes")
                 .HasKey(p => p.Id);
 
             modelBuilder

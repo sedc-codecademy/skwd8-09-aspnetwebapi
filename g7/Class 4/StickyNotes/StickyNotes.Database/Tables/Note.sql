@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Note]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [CreatedOn] SMALLDATETIME NOT NULL,
+	[DeletedOn] SMALLDATETIME NULL,
+	[Title] NVARCHAR(100) NOT NULL, 
+    [Text] NVARCHAR(MAX) NULL, 
+    [Color] INT NULL, 
+    [User_FK] INT NOT NULL, 
+    CONSTRAINT [FK_Note_User] FOREIGN KEY ([User_FK]) REFERENCES [User]([Id]),
+)

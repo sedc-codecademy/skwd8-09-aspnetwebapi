@@ -9,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SEDC.WebApi.NoteApp.Services;
 using SEDC.WebApi.NoteApp.Services.Helpers;
+using SEDC.WebApi.NoteApp.Services.Interfaces;
 
 namespace SEDC.WebApi.NoteApp.Api
 {
@@ -30,6 +32,10 @@ namespace SEDC.WebApi.NoteApp.Api
 
             // register data access dependencies
             DiModule.RegisterModule(services, connectionString);
+
+            // service registration
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INoteService, NoteService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
