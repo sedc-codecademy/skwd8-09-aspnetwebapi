@@ -3,6 +3,7 @@ using PremierLeague.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PremierLeague.Repositories.Repositories
 {
@@ -16,7 +17,7 @@ namespace PremierLeague.Repositories.Repositories
         }
         public IEnumerable<Team> GetAll()
         {
-            return _dbContext.Team;
+            return _dbContext.Team.Include(x => x.CoachNavigation).Include(x => x.Player);
         }
 
         public Team GetById(int id)
