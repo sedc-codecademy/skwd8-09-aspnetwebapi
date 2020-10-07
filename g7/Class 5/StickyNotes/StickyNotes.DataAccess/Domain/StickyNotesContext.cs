@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace StickyNotes.DataAccess.Entities
+namespace StickyNotes.DataAccess.Domain
 {
-    public partial class StickyNotesDatabaseContext : DbContext
+    public partial class StickyNotesContext : DbContext
     {
-        public StickyNotesDatabaseContext()
+        public StickyNotesContext()
         {
         }
 
-        public StickyNotesDatabaseContext(DbContextOptions<StickyNotesDatabaseContext> options)
+        public StickyNotesContext(DbContextOptions<StickyNotesContext> options)
             : base(options)
         {
         }
@@ -20,6 +18,11 @@ namespace StickyNotes.DataAccess.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=StickyNotes;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,4 @@
-﻿using StickyNotes.DataAccess.Entities;
+﻿using StickyNotes.DataAccess.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -24,7 +24,7 @@ namespace StickyNotes.ADO.Example
 
             List<User> users = new List<User>();
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 users.Add(new User
                 {
@@ -32,9 +32,9 @@ namespace StickyNotes.ADO.Example
                     CreatedOn = (DateTime)reader["CreatedOn"],
                     DeletedOn = null,
                     FirstName = (string)reader["FirstName"],
-                    LastName =  (string)reader["LastName"],
+                    LastName = (string)reader["LastName"],
                     Username = (string)reader["Username"],
-                    Password  = (string)reader["Password"]
+                    Password = (string)reader["Password"]
                 });
             }
 

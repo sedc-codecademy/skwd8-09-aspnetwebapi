@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyNotes.DataAccess.Entities
+namespace StickyNotes.DataAccess.Domain
 {
     public partial class User
     {
