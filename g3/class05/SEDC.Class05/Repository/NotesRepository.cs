@@ -20,29 +20,73 @@ namespace Repository
 
         public Note Add(NoteDtoAdd model)
         {
-            throw new NotImplementedException();
+            var noteToAdd = new Note
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Created = DateTime.Now,
+                DueDate = model.DueDate
+            };
+
+            _dataDbContext.Notes.Add(noteToAdd);
+            _dataDbContext.SaveChanges();
+
+            return noteToAdd;
         }
 
         public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var result = _dataDbContext.Notes.FirstOrDefault(x => x.Id == id);
+
+            if (result == null)
+            {
+                return false;
+            }
+
+
+            _dataDbContext.Notes.Remove(result);
+            _dataDbContext.SaveChanges();
+
+            return true;
         }
 
         public Note Edit(NoteDtoEdit model)
         {
-            throw new NotImplementedException();
+            var result = _dataDbContext.Notes.FirstOrDefault(x => x.Id == model.Id);
+
+            if (result == null)
+            {
+                return null;
+            }
+
+            result.Title = model.Title;
+            result.Description = model.Description;
+            result.DueDate = model.DueDate;
+
+            _dataDbContext.Notes.Update(result);
+            _dataDbContext.SaveChanges();
+
+            return result;
         }
 
         public Note Get(Guid id)
         {
-            throw new NotImplementedException();
+            var result = _dataDbContext.Notes.Where(x => x.Id == id).FirstOrDefault();
+
+            return result;
         }
 
         public IEnumerable<NoteDtoGetAll> GetAll()
         {
-            ///var result = _dataDbContext.Notes.Select(x=> new NoteDtoGetAll { })
+            var result = _dataDbContext.Notes
+                .Select(x => new NoteDtoGetAll
+                {
+                    Id = x.Id,
+                    DueDate = x.DueDate,
+                    Title = x.Title
+                }).AsEnumerable();
 
-            throw new NotImplementedException();
+            return result;
         }
     }
 }
