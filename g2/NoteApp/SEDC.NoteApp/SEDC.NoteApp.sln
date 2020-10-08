@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Api", "SEDC.NoteApp.Api\SEDC.NoteApp.Api.csproj", "{9E5F0472-CEC6-4CEC-9987-9B68AB9C55E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.Api", "SEDC.NoteApp.Api\SEDC.NoteApp.Api.csproj", "{9E5F0472-CEC6-4CEC-9987-9B68AB9C55E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.DataModels", "SEDC.NoteApp.DataModels\SEDC.NoteApp.DataModels.csproj", "{B4577553-F1C8-49ED-A69D-CD227CE64B88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.DataModels", "SEDC.NoteApp.DataModels\SEDC.NoteApp.DataModels.csproj", "{B4577553-F1C8-49ED-A69D-CD227CE64B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.DataAccess", "SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj", "{409AA7C5-EAEA-4541-95E6-9F58BFA43EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.DataAccess", "SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj", "{409AA7C5-EAEA-4541-95E6-9F58BFA43EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Services", "SEDC.NoteApp.Services\SEDC.NoteApp.Services.csproj", "{8769285B-7C77-4845-9FDA-B41240EF1982}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.Services", "SEDC.NoteApp.Services\SEDC.NoteApp.Services.csproj", "{8769285B-7C77-4845-9FDA-B41240EF1982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Models", "SEDC.NoteApp.Models\SEDC.NoteApp.Models.csproj", "{F100E0FE-DD1E-4A24-8A8E-0A4E6F48A5AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.Models", "SEDC.NoteApp.Models\SEDC.NoteApp.Models.csproj", "{F100E0FE-DD1E-4A24-8A8E-0A4E6F48A5AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

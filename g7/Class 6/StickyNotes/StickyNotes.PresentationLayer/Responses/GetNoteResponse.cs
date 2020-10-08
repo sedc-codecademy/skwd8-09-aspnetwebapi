@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace StickyNotes.DataAccess.Entities
+namespace StickyNotes.PresentationLayer.Responses
 {
-    public partial class Note
+    public class GetNoteResponse
     {
-        public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
         public int? Color { get; set; }
-        public int UserFk { get; set; }
-
-        public virtual User UserFkNavigation { get; set; }
+        public string NameOfUser { get; set; }
     }
 }

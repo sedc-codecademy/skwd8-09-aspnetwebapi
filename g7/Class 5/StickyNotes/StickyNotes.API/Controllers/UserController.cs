@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StickyNotes.API.Models;
-using StickyNotes.DataAccess.Entities;
+using StickyNotes.DataAccess.Domain;
 using StickyNotes.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace StickyNotes.API.Controllers
             _userRepository.Add(user);
             _userRepository.Save();
 
-            return StatusCode(StatusCodes.Status409Conflict, "The user already exists");
+            return Ok("The user was added");
         }
     }
 }

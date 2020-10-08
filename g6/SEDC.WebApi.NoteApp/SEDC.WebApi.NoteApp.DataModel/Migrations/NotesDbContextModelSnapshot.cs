@@ -38,7 +38,7 @@ namespace SEDC.WebApi.NoteApp.DataModel.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Note");
+                    b.ToTable("Notes");
 
                     b.HasData(
                         new { Id = 1, Color = "blue", Tag = 4, Text = "Buy Juice", UserId = 1 },
@@ -66,7 +66,7 @@ namespace SEDC.WebApi.NoteApp.DataModel.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
 
                     b.HasData(
                         new { Id = 1, FirstName = "Bob", LastName = "Bobsky", Password = "(?\\?-??3#>L?q", Username = "bob007" }
