@@ -21,6 +21,46 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
             this._noteService = noteService;
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<NoteDto>> Get([FromQuery]int id)
+        {
+            try
+            {
+                return Ok(_noteService.GetUserNotes(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<NoteDto> Get(int id, [FromQuery]int userId)
+        {
+            try
+            {
+                return Ok(_noteService.GetNote(id, userId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id, [FromQuery]int userId)
+        {
+            try
+            {
+                _noteService.DeleteNote(id, userId);
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public ActionResult Post([FromBody]NoteDto request)
         {
@@ -41,5 +81,7 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
     }
 }

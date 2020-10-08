@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using StickyNotes.DataAccess.Entities;
+using StickyNotes.DataAccess.Domain;
 using StickyNotes.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace StickyNotes.API
 
             services
                 .AddEntityFrameworkSqlServer()
-                .AddDbContext<StickyNotesDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DebugConnectionString")));
+                .AddDbContext<StickyNotesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DebugConnectionString")));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();
