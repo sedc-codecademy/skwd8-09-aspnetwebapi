@@ -60,7 +60,7 @@ namespace SEDC.NoteApp.Services
 
         private static bool ValidPassword(string password)
         {
-            var passwordRegex = new Regex("^(?=.*[0-9])(?=.*[a-z]).{6, 20}$");
+            var passwordRegex = new Regex("^(?=.*[0-9])(?=.*[a-z]).{6,20}$");
             var match = passwordRegex.Match(password);
             return match.Success;
         }

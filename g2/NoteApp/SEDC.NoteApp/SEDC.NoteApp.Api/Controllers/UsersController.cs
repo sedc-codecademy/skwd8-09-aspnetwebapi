@@ -20,24 +20,8 @@ namespace SEDC.NoteApp.Api.Controllers
             _userService = userService;
         }
 
-
-        // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<UsersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<UsersController>
-        [HttpPost]
-        public IActionResult Post([FromBody] RegisterModel user)
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterModel user)
         {
             try
             {
@@ -48,18 +32,6 @@ namespace SEDC.NoteApp.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
