@@ -43,8 +43,12 @@ namespace SEDC.NoteApp.Api
             //string hosts = Configuration.GetValue<string>("AllowedHosts");
 
 
+            //Call the RegisterModule method that register all the repositories and the NoteDbContext class
             DIModule.RegisterModule(services, connectionString);
+
+            //Registering services 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INoteService, NoteService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
