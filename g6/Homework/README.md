@@ -49,13 +49,17 @@ ex. if the client wants to get all Todos the json should look like:
 {
     "todos":[
         {
-            "title": ...,
-            "status": ...,
-            ....
+            "title": "Create web api",
+            "status": "in-progress",
+            "dateCreated": "10.10.2020",
+            "dateFinished": null,
+            .... 
             "subtasks": [
                 {
-                    "title": ...,
-                    "status": ...,
+                    "title": "Create connection with database",
+                    "status": "completed",
+                    "dateCreated": "10.10.2020",
+                    "dateFinished": "10.10.2020",
                     ...
                 }
             ]
