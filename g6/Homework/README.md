@@ -37,6 +37,7 @@ Subtasks:
 * ....
 
 Q: Do we need services or we could use only controllers?
+
 A: The approach or the architecture that you are using will determent if you need services or not.
 ex. if you are not using n-tier architecture and the whole application including connection with db and business logic is set in the application then you could skip the services.
 
