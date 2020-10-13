@@ -62,12 +62,16 @@ VALUES('{entity.Text}', '{entity.Color}', {entity.Tag}, {entity.UserId});";
         {
             // 1. Create new connection and give it a connection string
             SqlConnection connection = new SqlConnection(_connectionString);
+
             // 2. Open the connection to the database
             connection.Open();
+
             // 3. Create new SQL Command
             SqlCommand cmd = new SqlCommand();
+
             // 4. Give the command a connetion to some database
             cmd.Connection = connection;
+
             // 5. Write the SQL query
             cmd.CommandText = "SELECT * FROM Notes";
 

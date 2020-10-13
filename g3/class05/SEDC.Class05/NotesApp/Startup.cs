@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Repository;
 using Repository.Interfaces;
+using Services;
+using Services.Interfaces;
 
 namespace NotesApp
 {
@@ -30,8 +32,8 @@ namespace NotesApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen();
-
             services.AddTransient<INotesRepository, NotesRepository>();
+            services.AddTransient<INotesService, NotesService>();
             services.AddDbContext<DataDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }

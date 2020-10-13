@@ -10,6 +10,7 @@ using Models.Dto;
 using Remotion.Linq.Utilities;
 using System.Net;
 using Repository.Interfaces;
+using Services.Interfaces;
 
 namespace NotesApp.Controllers
 {
@@ -17,24 +18,24 @@ namespace NotesApp.Controllers
     [ApiController]
     public class NotesController : ControllerBase
     {
-        private INotesRepository _notesRepository;
+        private INotesService _notesService;
 
-        public NotesController(INotesRepository notesRepository)
+        public NotesController(INotesService notesService)
         {
-            _notesRepository = notesRepository;
+            _notesService = notesService;
         }
 
         // URL: http://localhost:47893/api/notes/getall
         [HttpGet("getall")]
         public ActionResult<IEnumerable<NoteDtoGetAll>> GetAll()
         {
-            return Ok(_notesRepository.GetAll());
+            return Ok(_notesService.GetAll());
         }
 
         [HttpGet("get/{id}")]
         public ActionResult<Note> Get(Guid id)
         {
-            var result = _notesRepository.Get(id);
+            var result = _notesService.Get(id);
 
             if (result == null) return NotFound();
 
@@ -44,7 +45,7 @@ namespace NotesApp.Controllers
         [HttpPost("add")]
         public ActionResult<Note> Add([FromBody]NoteDtoAdd model)
         {
-            var result = _notesRepository.Add(model);
+            var result = _notesService.Add(model);
 
             if (result == null) BadRequest();
 
@@ -54,7 +55,7 @@ namespace NotesApp.Controllers
         [HttpPut("edit")]
         public ActionResult<Note> Edit([FromBody]NoteDtoEdit model)
         {
-            var result = _notesRepository.Edit(model);
+            var result = _notesService.Edit(model);
 
             if (result == null) BadRequest();
 
@@ -64,7 +65,7 @@ namespace NotesApp.Controllers
         [HttpDelete("delete/{id}")]
         public ActionResult<bool> Delete(Guid id)
         {
-            return _notesRepository.Delete(id);
+            return _notesService.Delete(id);
         }
     }
 }

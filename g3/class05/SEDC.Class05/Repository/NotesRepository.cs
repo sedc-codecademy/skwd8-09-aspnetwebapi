@@ -43,7 +43,6 @@ namespace Repository
                 return false;
             }
 
-
             _dataDbContext.Notes.Remove(result);
             _dataDbContext.SaveChanges();
 
