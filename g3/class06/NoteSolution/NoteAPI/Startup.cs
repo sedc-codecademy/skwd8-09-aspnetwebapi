@@ -36,7 +36,8 @@ namespace NoteAPI
 
             services.AddTransient<INoteRepository, NoteRepository>();
 
-            services.AddDbContext<NoteDbContext>(options => 
+            // Using the DbContextOptionsBuilder we build the options that are sent in the contructor of our NoteDbContext
+            services.AddDbContext<NoteDbContext>(options => // options is an object of type DbContextOptionsBuilder
                 options.UseSqlServer(Configuration.GetConnectionString("NotesConnection"))
             );
         }
