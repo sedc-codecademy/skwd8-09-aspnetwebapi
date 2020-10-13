@@ -20,6 +20,7 @@ namespace RegistrationApp.Controllers
         [HttpGet]
         public ActionResult<List<RegistrationViewModel>> GetAll()
         {
+            //return BadRequest("Your call is not valid");
             return _registrationService.GetAll();
         }
 
