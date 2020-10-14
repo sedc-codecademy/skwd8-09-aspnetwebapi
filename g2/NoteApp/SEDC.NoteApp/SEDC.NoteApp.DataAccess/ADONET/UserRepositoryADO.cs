@@ -66,6 +66,7 @@ namespace SEDC.NoteApp.DataAccess.ADONET
             cmd.CommandText = "SELECT * FROM Users";
 
             SqlDataReader dr = cmd.ExecuteReader();
+
             List<UserDTO> users = new List<UserDTO>();
 
             while (dr.Read())

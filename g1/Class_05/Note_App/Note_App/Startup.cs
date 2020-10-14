@@ -10,7 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Services.Helpers;
+using Services.Interfaces;
+using Services.ServicesImplementations;
 
 namespace Note_App
 {
@@ -26,10 +29,15 @@ namespace Note_App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             // get connection string from app settings json file
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INoteService, NoteService>();
 
             DIModule.RegisterModule(services, connectionString);
         }
