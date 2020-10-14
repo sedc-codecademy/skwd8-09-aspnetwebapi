@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SEDC.WebApi.NoteApp.Models;
 using SEDC.WebApi.NoteApp.Services.Exceptions;
 using SEDC.WebApi.NoteApp.Services.Interfaces;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SEDC.WebApi.NoteApp.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -21,6 +23,7 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
             this._userService = userService;
         }
 
+        [AllowAnonymous]
         [HttpPost("authenticate")]
         public ActionResult<UserModel> Authenticate(
             [FromBody]LoginModel request)
@@ -46,6 +49,7 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody]RegisterModel request)
         {

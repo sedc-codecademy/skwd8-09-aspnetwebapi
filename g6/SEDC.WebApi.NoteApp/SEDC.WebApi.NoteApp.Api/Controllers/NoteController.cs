@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SEDC.WebApi.NoteApp.Models;
 using SEDC.WebApi.NoteApp.Services.Exceptions;
 using SEDC.WebApi.NoteApp.Services.Interfaces;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SEDC.WebApi.NoteApp.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NoteController : ControllerBase

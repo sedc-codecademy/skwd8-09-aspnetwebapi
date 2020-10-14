@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.DataAccess", "SEDC.WebApi.NoteApp.DataAccess\SEDC.WebApi.NoteApp.DataAccess.csproj", "{965B89ED-B0CF-4359-9A20-962B61B4A36F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.WebApi.NoteApp.DataAccess", "SEDC.WebApi.NoteApp.DataAccess\SEDC.WebApi.NoteApp.DataAccess.csproj", "{965B89ED-B0CF-4359-9A20-962B61B4A36F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.DataModels", "SEDC.WebApi.NoteApp.DataModels\SEDC.WebApi.NoteApp.DataModels.csproj", "{966A3717-DB93-4F29-B2FA-DE14F07F7C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.Models", "SEDC.WebApi.NoteApp.Models\SEDC.WebApi.NoteApp.Models.csproj", "{63BA3A2A-771D-4B51-9BFA-881C5FBEAC47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.WebApi.NoteApp.Models", "SEDC.WebApi.NoteApp.Models\SEDC.WebApi.NoteApp.Models.csproj", "{63BA3A2A-771D-4B51-9BFA-881C5FBEAC47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.Services", "SEDC.WebApi.NoteApp.Services\SEDC.WebApi.NoteApp.Services.csproj", "{85B2ED30-ECCE-4E76-9CAB-1EDF6EC67288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.WebApi.NoteApp.Services", "SEDC.WebApi.NoteApp.Services\SEDC.WebApi.NoteApp.Services.csproj", "{85B2ED30-ECCE-4E76-9CAB-1EDF6EC67288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.Api", "SEDC.WebApi.NoteApp.Api\SEDC.WebApi.NoteApp.Api.csproj", "{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.WebApi.NoteApp.Api", "SEDC.WebApi.NoteApp.Api\SEDC.WebApi.NoteApp.Api.csproj", "{5DE0619D-70F7-44F1-8483-F1E2E13CEC8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.DataModel", "SEDC.WebApi.NoteApp.DataModel\SEDC.WebApi.NoteApp.DataModel.csproj", "{EBC420BA-4864-4AA5-B4D3-14CB18128C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.WebApi.NoteApp.DataModel", "SEDC.WebApi.NoteApp.DataModel\SEDC.WebApi.NoteApp.DataModel.csproj", "{EBC420BA-4864-4AA5-B4D3-14CB18128C83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.WebApi.NoteApp.PerformanceChecker", "SEDC.WebApi.NoteApp.PerformanceChecker\SEDC.WebApi.NoteApp.PerformanceChecker.csproj", "{63EB9443-0ED0-4F0C-A6C4-24519F95D71A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC420BA-4864-4AA5-B4D3-14CB18128C83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63EB9443-0ED0-4F0C-A6C4-24519F95D71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63EB9443-0ED0-4F0C-A6C4-24519F95D71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63EB9443-0ED0-4F0C-A6C4-24519F95D71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63EB9443-0ED0-4F0C-A6C4-24519F95D71A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

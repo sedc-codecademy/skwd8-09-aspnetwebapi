@@ -12,5 +12,6 @@ namespace SEDC.WebApi.NoteApp.Models
         public string LastName { get; set; }
 
         // TODO: Add token here
+        public string Token { get; set; }
     }
 }
