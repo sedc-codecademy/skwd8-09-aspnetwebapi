@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj" />
     <ProjectReference Include="..\SEDC.NoteApp.DataModels\SEDC.NoteApp.DataModels.csproj" />
     <ProjectReference Include="..\SEDC.NoteApp.Models\SEDC.NoteApp.Models.csproj" />

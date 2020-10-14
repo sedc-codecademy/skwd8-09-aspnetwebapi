@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.NoteApp.Models;
@@ -9,6 +11,7 @@ using SEDC.NoteApp.Services;
 
 namespace SEDC.NoteApp.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotesController : ControllerBase
@@ -24,7 +27,8 @@ namespace SEDC.NoteApp.Api.Controllers
         {
             try
             {
-                int userId = 1;
+                //int userId = 1;
+                int userId = GetAuthorizedUserId();
                 return Ok(_noteService.GetUserNotes(userId));
             }
             catch (Exception ex)
@@ -38,7 +42,8 @@ namespace SEDC.NoteApp.Api.Controllers
         {
             try
             {
-                int userId = 1;
+                //int userId = 1;
+                int userId = GetAuthorizedUserId();
                 return Ok(_noteService.GetNote(id, userId));
             }
             catch (Exception ex)
@@ -52,6 +57,7 @@ namespace SEDC.NoteApp.Api.Controllers
         {
             try
             {
+                model.Id = GetAuthorizedUserId();
                 _noteService.AddNote(model);
                 return Ok("Successfully added note!");
             }
@@ -66,7 +72,8 @@ namespace SEDC.NoteApp.Api.Controllers
         {
             try
             {
-                int userId = 1;
+                //int userId = 1;
+                int userId = GetAuthorizedUserId();
                 _noteService.DeleteNote(id, userId);
                 return Ok("Note deleted successfully!");
             }
@@ -74,6 +81,17 @@ namespace SEDC.NoteApp.Api.Controllers
             {
                 return BadRequest($"Something went wrong. Please contact support! Message: {ex.Message}");
             }
+        }
+
+
+        private int GetAuthorizedUserId()
+        {
+            if(!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var userId))
+            {
+                string name = User.FindFirst(ClaimTypes.Name)?.Value;
+                throw new Exception("Name identifier claim does not exist!");
+            }
+            return userId;
         }
     }
 }
