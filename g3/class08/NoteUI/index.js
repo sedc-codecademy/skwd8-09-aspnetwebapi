@@ -1,3 +1,4 @@
+// we keep all DOM elements in this nodes object
 const nodes = {
   signInForm: document.getElementById("sign-in-form"),
   usernameInput: document.getElementById("username-input"),
@@ -9,6 +10,7 @@ const nodes = {
   noteDetails: document.getElementById("note-details")
 }
 
+// Initial registration of the events
 function registerListeners() {
   nodes.loginButton.addEventListener("click", () => {
     const username = nodes.usernameInput.value

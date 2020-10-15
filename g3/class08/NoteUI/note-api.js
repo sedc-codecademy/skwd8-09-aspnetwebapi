@@ -1,3 +1,5 @@
+// This script only for grouping all the NoteAPI Urls in one place
+
 const noteApiBaseUrl = "http://localhost:52270";
 
 const noteApi = {

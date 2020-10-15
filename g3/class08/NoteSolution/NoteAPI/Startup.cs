@@ -35,7 +35,7 @@ namespace NoteAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(); // Don't forget to add the CORS service
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,7 +57,7 @@ namespace NoteAPI
                 };
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(options => // The options below are to enable the swagger feature for passing Authorization header in every call
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -105,8 +105,9 @@ namespace NoteAPI
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Notes API V1");
                 });
             }
-            app.UseStaticFiles();
-            app.UseCors(options => options
+            
+            app.UseStaticFiles();// If you want to server statc files from "wwwroot" folder, this line must be present, for example go to localhost:54324/index.html
+            app.UseCors(options => options // CORS config must be present in order for the API to serve different-origin frontend
                                     .AllowAnyOrigin()
                                     .AllowAnyHeader()
                                     .AllowAnyMethod()
