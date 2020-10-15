@@ -23,14 +23,14 @@ namespace NoteAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("signin")]
-        public UserWithTokenDto Authenticate(UserSignInDto model)
+        public UserWithTokenDto Authenticate([FromBody] UserSignInDto model)
         {
             return _userService.Authenticate(model);
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public void Register(UserRegisterDto model)
+        public void Register([FromBody] UserRegisterDto model)
         {
             _userService.Register(model);
         }

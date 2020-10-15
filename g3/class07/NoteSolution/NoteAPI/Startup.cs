@@ -35,6 +35,7 @@ namespace NoteAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,6 +65,16 @@ namespace NoteAPI
                     Type = SecuritySchemeType.ApiKey,
                     Name = "Authorization",
                     Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new string[]{}
+                    }
                 });
             });
 
@@ -95,6 +106,12 @@ namespace NoteAPI
                 });
             }
 
+            app.UseCors(options => options
+                                    .AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                                    .AllowCredentials()
+                                    .SetIsOriginAllowed(origin => true));
             app.UseAuthentication();
             app.UseMvc();
         }
