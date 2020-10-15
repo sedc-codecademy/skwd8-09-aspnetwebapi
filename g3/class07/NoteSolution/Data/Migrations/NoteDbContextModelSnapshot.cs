@@ -58,12 +58,11 @@ namespace Data.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(20);
 
-                    b.Property<string>("Gender");
-
                     b.Property<string>("LastName")
                         .HasMaxLength(30);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Username")
                         .HasMaxLength(50);
@@ -76,7 +75,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Entity.Note", b =>
                 {
                     b.HasOne("Models.Entity.User", "User")
-                        .WithMany("Notes")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -10,47 +10,29 @@ using Services.Interfaces;
 
 namespace NoteAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
 
+        [AllowAnonymous]
+        [HttpPost("signin")]
+        public UserWithTokenDto Authenticate(UserSignInDto model)
+        {
+            return _userService.Authenticate(model);
+        }
+
+        [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register(RegisterUserDto user)
+        public void Register(UserRegisterDto model)
         {
-            try
-            {
-                _userService.Register(user);
-
-                return Ok("User created");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new Exception(ex.Message));
-            }
+            _userService.Register(model);
         }
-
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate(string username,string password)
-        {
-            try
-            {
-                var result = _userService.Authenticate(username, password);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new Exception(ex.Message));
-            }
-        }
-
     }
 }

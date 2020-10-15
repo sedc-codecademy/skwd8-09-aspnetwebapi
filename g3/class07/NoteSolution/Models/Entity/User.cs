@@ -13,14 +13,12 @@ namespace Models.Entity
         public string Email { get; set; }
         [MaxLength(50)]
         public string Username { get; set; }
-
+        [MaxLength(30)]
         public string Password { get; set; }
         [MaxLength(20)]
         public string FirstName { get; set; }
         [MaxLength(30)]
         public string LastName { get; set; }
         public int Age { get; set; }
-
-        public virtual ICollection<Note> Notes { get; set; }
     }
 }

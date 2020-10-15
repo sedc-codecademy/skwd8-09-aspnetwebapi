@@ -25,9 +25,9 @@ namespace Repositories
             return _context.Notes.AsQueryable(); // Returns IQueryable so that we can continue to build the query in the services
         }
 
-        public Note GetById(Guid noteId, Guid userId)
+        public Note GetById(Guid noteId)
         {
-            return _context.Notes.SingleOrDefault(note => note.Id == noteId && note.UserId == userId);
+            return _context.Notes.SingleOrDefault(note => note.Id == noteId);
         }
 
         public Note Add(Note note)
@@ -42,7 +42,7 @@ namespace Repositories
         {
             // Edit is tricky
             // With .Find() we get the "reference" of the record from the db
-            Note note = _context.Notes.FirstOrDefault(x => x.Id == noteDto.Id && x.UserId == noteDto.UserId);
+            Note note = _context.Notes.Find(noteDto.Id);
 
 
             // And we make the wanted changes on that reference
@@ -50,25 +50,17 @@ namespace Repositories
             note.Description = noteDto.Description;
             note.DueDate = noteDto.DueDate;
             note.ModifiedDate = noteDto.ModifiedDate;
-            _context.Notes.Update(note);
             _context.SaveChanges(); // And we should not forget to save those changes in the Database
 
             return note;
         }
 
-        public bool Delete(Guid noteId, Guid userId)
+        public int Delete(Guid noteId)
         {
-            Note note = _context.Notes.FirstOrDefault(x => x.Id == noteId && x.UserId == userId);
-
-            if (note == null)
-            {
-                return false;
-            }
+            Note note = _context.Notes.Find(noteId);
 
             _context.Notes.Remove(note);
-            _context.SaveChanges();
-
-            return false;
+            return _context.SaveChanges();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Services.Interfaces
 {
     public interface IUserService
     {
-        void Register(RegisterUserDto user);
-        LoggedUserDto Authenticate(string user,string password);
+        UserWithTokenDto Authenticate(UserSignInDto model);
+        void Register(UserRegisterDto model);
     }
 }

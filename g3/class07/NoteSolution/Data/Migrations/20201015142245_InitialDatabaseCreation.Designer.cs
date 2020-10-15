@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(NoteDbContext))]
-    [Migration("20201014154515_InitialCreationOfDatabase")]
-    partial class InitialCreationOfDatabase
+    [Migration("20201015142245_InitialDatabaseCreation")]
+    partial class InitialDatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,8 @@ namespace Data.Migrations
                     b.Property<string>("LastName")
                         .HasMaxLength(30);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Username")
                         .HasMaxLength(50);
@@ -76,7 +77,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Entity.Note", b =>
                 {
                     b.HasOne("Models.Entity.User", "User")
-                        .WithMany("Notes")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

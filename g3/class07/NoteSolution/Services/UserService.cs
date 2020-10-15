@@ -1,4 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Models.Configuration;
 using Models.Dto;
 using Models.Entity;
 using Repositories.Interfaces;
@@ -16,137 +19,136 @@ namespace Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly TokenOptions _tokenConfig;
+        private readonly MD5CryptoServiceProvider _md5;
+        private readonly JwtSecurityTokenHandler _tokenHandler;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IOptions<TokenOptions> tokenOptions)
         {
             _userRepository = userRepository;
+            _tokenConfig = tokenOptions.Value;
+            _md5 = new MD5CryptoServiceProvider();
+            _tokenHandler = new JwtSecurityTokenHandler();
         }
 
-        public LoggedUserDto Authenticate(string userName, string password)
+        public UserWithTokenDto Authenticate(UserSignInDto model)
         {
-            var md5 = new MD5CryptoServiceProvider();
-            // We create the hash from the password
-            var md5Data = md5.ComputeHash(Encoding.ASCII.GetBytes(password));
-            // We get the hash string
-            var hashedPassword = Encoding.ASCII.GetString(md5Data);
-
-            var user = _userRepository.GetUsers().SingleOrDefault(x => x.Username == userName && x.Password == hashedPassword);
-
-            if (user == null)
+            try
             {
-                throw new Exception();
-            }
+                User user = _userRepository.GetByUsername(model.Username);
+                ValidateSignInModel(model, user);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("SECRET! IT CAN BE ANY TEXT!");
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new System.Security.Claims.ClaimsIdentity(
-                    new[]
+                byte[] key = Encoding.ASCII.GetBytes(_tokenConfig.SecretKey);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                    }
-                    ),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(
-                        new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
-            return new LoggedUserDto
+                var token = _tokenHandler.CreateToken(tokenDescriptor);
+
+                return new UserWithTokenDto
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Age = user.Age,
+                    Token = _tokenHandler.WriteToken(token)
+                };
+            }
+            catch (Exception ex)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                UserName = user.Username,
-                Token = tokenHandler.WriteToken(token)
-            };
+                throw ex;
+            }
         }
 
-
-
-        public void Register(RegisterUserDto user)
+        public void Register(UserRegisterDto model)
         {
-            if (!CheckIfMailExists(user.Email))
+            try
             {
-                throw new Exception();
+                ValidateUserRegisterModel(model);
+
+                // We create the hash from the password
+                byte[] md5Hash = _md5.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
+                // We get the hash string
+                string hashedPassword = Encoding.ASCII.GetString(md5Hash);
+
+                User user = _userRepository.Add(new User
+                {
+                    Id = Guid.NewGuid(),
+                    Username = model.Username,
+                    Email = model.Email,
+                    Password = hashedPassword,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Age = model.Age
+                });
             }
-
-            if (!CheckIfUserNameExists(user.Username))
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw ex;
             }
-
-            if (string.IsNullOrEmpty(user.FirstName))
-            {
-                throw new Exception();
-            }
-
-            if (string.IsNullOrEmpty(user.LastName))
-            {
-                throw new Exception();
-            }
-
-            if (string.IsNullOrEmpty(user.Password))
-            {
-                throw new Exception();
-            }
-
-            if (user.Age == 0)
-            {
-                throw new Exception();
-            }
-
-            if (!user.Password.Equals(user.ConfirmPassword))
-            {
-                throw new Exception();
-            }
-
-            var md5 = new MD5CryptoServiceProvider();
-            // We create the hash from the password
-            var md5Data = md5.ComputeHash(Encoding.ASCII.GetBytes(user.Password));
-            // We get the hash string
-            var hashedPassword = Encoding.ASCII.GetString(md5Data);
-
-            var newUser = new User
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Username = user.Username,
-                Age = user.Age,
-                Password = hashedPassword
-            };
-
-            _userRepository.Add(newUser);
         }
 
-        #region private methods
-        private bool CheckIfMailExists(string email)
+        private void ValidateUserRegisterModel(UserRegisterDto model)
         {
-            var result = _userRepository.GetUsers().SingleOrDefault(x => x.Email == email);
-
-            if (result == null)
+            if (_userRepository.GetAll().Any(u => u.Email == model.Email))
             {
-                return true;
+                throw new Exception($"User with {model.Email} already exists");
             }
 
-            return false;
+            if (_userRepository.GetAll().Any(u => u.Username == model.Username))
+            {
+                throw new Exception($"User with {model.Username} already exists");
+            }
+
+            if (string.IsNullOrEmpty(model.FirstName))
+            {
+                throw new Exception("FirstName cannot be empty");
+            }
+
+            if (string.IsNullOrEmpty(model.LastName))
+            {
+                throw new Exception("LastName cannot be empty");
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                throw new Exception("Password cannot be empty");
+            }
+
+            if (!model.Password.Equals(model.ConfirmPassword))
+            {
+                throw new Exception("ConfirmPassword must match Password");
+            }
+
+            if (model.Age <= 0)
+            {
+                throw new Exception("Age must contain a value higher than 0");
+            }
         }
 
-        private bool CheckIfUserNameExists(string userName)
+        private void ValidateSignInModel(UserSignInDto model, User user)
         {
-            var result = _userRepository.GetUsers().SingleOrDefault(x => x.Username == userName);
-
-            if (result == null)
+            byte[] md5Hash = _md5.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
+            string hashedPassword = Encoding.ASCII.GetString(md5Hash);
+            
+            if (user == null)
             {
-                return true;
+                throw new Exception("User does not exists");
             }
 
-            return false;
+            if (user.Password != hashedPassword)
+            {
+                throw new Exception("Wrong Password");
+            }
         }
-        #endregion
-
     }
 }

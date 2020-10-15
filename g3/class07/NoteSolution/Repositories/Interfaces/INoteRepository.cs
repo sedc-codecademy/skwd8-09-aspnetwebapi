@@ -10,9 +10,9 @@ namespace Repositories.Interfaces
     public interface INoteRepository
     {
         IQueryable<Note> GetAll();
-        Note GetById(Guid noteId, Guid userId);
+        Note GetById(Guid noteId);
         Note Add(Note note);
         Note Edit(NoteEditDto noteDto);
-        bool Delete(Guid noteId, Guid userId);
+        int Delete(Guid noteId);
     }
 }

@@ -60,14 +60,14 @@ namespace Services
             catch (Exception ex)
             {
                 throw ex;
-            }
+            }                       
         }
 
-        public Note GetById(Guid noteId, Guid userId)
+        public Note GetById(Guid noteId)
         {
             try
             {
-                return _noteRepository.GetById(noteId, userId);
+                return _noteRepository.GetById(noteId);
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace Services
             }
         }
 
-        public Note Add(NoteAddDto noteDto)
+        public Note Add(Guid userId, NoteAddDto noteDto)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Services
                     Description = noteDto.Description,
                     CreatedDate = DateTime.Now,
                     DueDate = noteDto.DueDate,
-                    UserId = noteDto.UserId,
+                    UserId = userId,
                     ModifiedDate = null
                 };
 
@@ -111,16 +111,21 @@ namespace Services
             }
         }
 
-        public bool Delete(Guid noteId, Guid userId)
+        public bool Delete(Guid noteId)
         {
             try
             {
-                var result = _noteRepository.Delete(noteId, userId);
+                // .SaveChanges() method returns the state of the save operation: -1 - Failed, 0 - No changes, 1 - Success
+                int saveResult = _noteRepository.Delete(noteId);
 
-                if (result)
+                if (saveResult < 0)
+                {
+                    return false;
+                }
+                else
+                {
                     return true;
-
-                return false;
+                }
             }
             catch (Exception ex)
             {

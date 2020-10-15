@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models.Dto
 {
-    public class RegisterUserDto
+    public class UserRegisterDto
     {
         public string Email { get; set; }
         public string Username { get; set; }

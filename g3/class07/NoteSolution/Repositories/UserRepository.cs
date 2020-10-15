@@ -11,57 +11,55 @@ namespace Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly NoteDbContext _dbContext;
+        private readonly NoteDbContext _context;
 
-        public UserRepository(NoteDbContext dbContext)
+        public UserRepository(NoteDbContext context)
         {
-            _dbContext = dbContext;
+            _context = context;
         }
 
-        public void Add(User user)
+        public IQueryable<User> GetAll()
         {
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            return _context.Users.AsQueryable();
         }
 
-        public bool Delete(Guid id)
+        public User GetById(Guid id)
         {
-            var user = _dbContext.Users.Where(x => x.Id == id).FirstOrDefault();
-
-            if (user == null)
-                return false;
-
-            _dbContext.Users.Remove(user);
-            _dbContext.SaveChanges();
-
-            return true;
+            return _context.Users.SingleOrDefault(u => u.Id == id);
         }
 
-        public bool Edit(EditUserDto user)
+        public User GetByUsername(string username)
         {
-            var userModel = _dbContext.Users.FirstOrDefault(x => x.Id == user.Id);
-
-            if (userModel == null)
-                return false;
-
-            userModel.FirstName = user.FirstName;
-            userModel.LastName = user.LastName;
-            userModel.Username = user.Username;
-            userModel.Password = user.Password;
-            userModel.Age = user.Age;
-
-            _dbContext.Users.Update(userModel);
-            _dbContext.SaveChanges();
-
-            return true;
+            return _context.Users.SingleOrDefault(u => u.Username == username);
         }
 
-        public User GetById(Guid id) => _dbContext.Users.FirstOrDefault(x => x.Id == id);
-
-
-        public IEnumerable<User> GetUsers()
+        public User Add(User user)
         {
-            return _dbContext.Users.AsEnumerable();
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return user;
+        }
+
+        public User Edit(User model)
+        {
+            User user = _context.Users.SingleOrDefault(u => u.Id == model.Id);
+            user.Email = model.Email;
+            user.Username = model.Username;
+            user.Password = model.Password;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Age = model.Age;
+            _context.SaveChanges();
+
+            return user;
+        }
+
+        public int Delete(Guid id)
+        {
+            User user = _context.Users.Single(u => u.Id == id);
+            _context.Users.Remove(user);
+            return _context.SaveChanges();
         }
     }
 }

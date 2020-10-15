@@ -10,9 +10,9 @@ namespace Services.Interfaces
     {
         IEnumerable<NoteGetAllDto> GetAll();
         IEnumerable<NoteGetAllDto> GetAll(Guid userId);
-        Note GetById(Guid noteId,Guid userId);
-        Note Add(NoteAddDto note);
+        Note GetById(Guid noteId);
+        Note Add(Guid userId, NoteAddDto note);
         Note Edit(NoteEditDto note);
-        bool Delete(Guid noteId,Guid userId);
+        bool Delete(Guid noteId);
     }
 }

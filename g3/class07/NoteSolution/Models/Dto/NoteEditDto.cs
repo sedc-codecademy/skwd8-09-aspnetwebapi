@@ -11,6 +11,5 @@ namespace Models.Dto
         public string Description { get; set; }
         public DateTime? DueDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public Guid UserId { get; set; }
     }
 }
