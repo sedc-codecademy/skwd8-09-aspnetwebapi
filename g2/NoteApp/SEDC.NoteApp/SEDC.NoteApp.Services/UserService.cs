@@ -1,9 +1,14 @@
-﻿using SEDC.NoteApp.DataAccess;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using SEDC.NoteApp.DataAccess;
 using SEDC.NoteApp.DataModels;
 using SEDC.NoteApp.Models;
+using SEDC.NoteApp.Services.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,9 +18,51 @@ namespace SEDC.NoteApp.Services
     public class UserService : IUserService
     {
         private readonly IRepository<UserDTO> _userRepository;
-        public UserService(IRepository<UserDTO> userRepository)
+        private readonly IOptions<AppSettings> _options;
+        public UserService(IRepository<UserDTO> userRepository, IOptions<AppSettings> options)
         {
             _userRepository = userRepository;
+            _options = options;
+        }
+
+        public UserModel Authenticate(string username, string password)
+        {
+            var md5 = new MD5CryptoServiceProvider();
+            var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(password));
+            var hashedPassword = Encoding.ASCII.GetString(md5data);
+
+            var user = _userRepository.GetAll()
+                .SingleOrDefault(x => x.Username == username && x.Password == hashedPassword);
+
+            if (user == null) return null;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_options.Value.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new System.Security.Claims.ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    }),
+                Expires = DateTime.UtcNow.AddMinutes(1),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            var userModel = new UserModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Token = tokenHandler.WriteToken(token)
+            };
+            return userModel;
+
         }
 
         public void Register(RegisterModel model)
