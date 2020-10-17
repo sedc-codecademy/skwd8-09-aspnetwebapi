@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEDC.WebApi.NoteApp.Models;
 using SEDC.WebApi.NoteApp.Services.Exceptions;
 using SEDC.WebApi.NoteApp.Services.Interfaces;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,17 +35,20 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
                     .Authenticate(request.Username,
                     request.Password);
 
-                Debug.WriteLine($"{response.Id} has been loged in");
+                Log.Information($"USER: {response.Username} has logged in");
+                //Debug.WriteLine($"{response.Id} has been loged in");
                 return Ok(response);
             }
             catch(UserException ex)
             {
-                Debug.WriteLine($"USER: {ex.UserId}.{ex.Name} {ex.Message}");
+                Log.Error($"USER: {ex.UserId}.{ex.Name}: {ex.Message}");
+                //Debug.WriteLine($"USER: {ex.UserId}.{ex.Name} {ex.Message}");
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Log.Error("USER: {message}", ex.Message);
+                //Debug.WriteLine(ex.Message);
                 return BadRequest("Something went wrong!");
             }
         }
@@ -56,17 +60,21 @@ namespace SEDC.WebApi.NoteApp.Api.Controllers
             try
             {
                 _userService.Register(request);
-                Debug.WriteLine($"User registered with {request.Username}");
+
+                Log.Information("USER: {username} has registered", request.Username);
+                //Debug.WriteLine($"User registered with {request.Username}");
                 return Ok("Success");
             }
             catch(UserException ex)
             {
-                Debug.WriteLine($"User {ex.UserId}.{ex.Name}: {ex.Message}");
+                Log.Error($"USER: {ex.UserId}.{ex.Name}: {ex.Message}");
+                //Debug.WriteLine($"User {ex.UserId}.{ex.Name}: {ex.Message}");
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Unknown error: {ex.Message}");
+                Log.Error($"USER: {ex.Message}");
+                //Debug.WriteLine($"Unknown error: {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

@@ -31,6 +31,16 @@ namespace SEDC.WebApi.NoteApp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
+
             // get connection string
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -75,6 +85,7 @@ namespace SEDC.WebApi.NoteApp.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
 
             app.UseMvc();
