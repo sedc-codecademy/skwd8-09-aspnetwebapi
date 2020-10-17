@@ -7,6 +7,7 @@ using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Repositories;
 using Repositories.Interfaces;
 using Services;
@@ -33,37 +35,62 @@ namespace NoteAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                byte[] secretKey = Encoding.ASCII.GetBytes(
+                    Configuration.GetSection("Token").GetValue<string>("SecretKey")
+                );
+
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
 
-            services.AddTransient<INoteService, NoteService>();
+            services.Configure<Models.Configuration.TokenOptions>(Configuration.GetSection(Models.Configuration.TokenOptions.Token));
 
-            services.AddTransient<INoteRepository, NoteRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddSwaggerGen();
             // Using the DbContextOptionsBuilder we build the options that are sent in the contructor of our NoteDbContext
             services.AddDbContext<NoteDbContext>(options => // options is an object of type DbContextOptionsBuilder
                 options.UseSqlServer(Configuration.GetConnectionString("NotesConnection"))
             );
 
-            var key = Encoding.ASCII.GetBytes("SECRET! IT CAN BE ANY TEXT!");
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+            services.AddTransient<IControllerUtilityService, ControllerUtilityService>();
+            services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,12 +100,19 @@ namespace NoteAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c =>
+                app.UseSwaggerUI(options =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "To Do List API V1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Notes API V1");
                 });
             }
-            app.UseAuthentication();//This should be added for using authentication (jwt token)
+
+            app.UseCors(options => options
+                                    .AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                                    .AllowCredentials()
+                                    .SetIsOriginAllowed(origin => true));
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
