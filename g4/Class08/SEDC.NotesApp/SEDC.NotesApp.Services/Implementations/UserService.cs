@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SEDC.NotesApp.DataAccess;
 using SEDC.NotesApp.Domain.Models;
 using SEDC.NotesApp.Models;
 using SEDC.NotesApp.Services.Interfaces;
+using SEDC.NotesApp.Shared;
 using SEDC.NotesApp.Shared.Exceptions;
 
 namespace SEDC.NotesApp.Services.Implementations
@@ -17,10 +22,13 @@ namespace SEDC.NotesApp.Services.Implementations
     public class UserService : IUserService
     {
         private IRepository<User> _userRepository;
+        //IOptions is used to retrieve the configuration - in this case the AppSettings Configuration Section
+        private IOptions<AppSettings> _options;
 
-        public UserService(IRepository<User> userRepository)
+        public UserService(IRepository<User> userRepository, IOptions<AppSettings> options)
         {
             _userRepository = userRepository;
+            _options = options;
         }
         public void RegisterUser(RegisterModel registerModel)
         {
@@ -73,10 +81,34 @@ namespace SEDC.NotesApp.Services.Implementations
             User userDb = _userRepository.GetAll().FirstOrDefault(x => x.Username == loginModel.Username
                                                                        && x.Password == hashedPassword);
             if(userDb == null)
-                throw new NotFoundException($"The user was not found ");
+                throw new NotFoundException($"The user with username {loginModel.Username} was not found! ");
+            //authentication (identification of user) finished
 
-            //to-do
-            return null;
+            //Install System.IdentityModel.Tokens.Jwt 5.2.2 NuGet
+
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            //string secretKey = "Notes app secret secret key";
+            //get the SecretKey from AppSettings
+            byte[] secretKeyBytes = Encoding.ASCII.GetBytes(_options.Value.SecretKey);
+                //configure the token
+                SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    //signature definition
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes),
+                        SecurityAlgorithms.HmacSha256Signature),
+                    //payload
+                    Subject = new ClaimsIdentity(
+                        new[]
+                        {
+                            new Claim(ClaimTypes.Name, userDb.Username),
+                            new Claim(ClaimTypes.NameIdentifier, userDb.Id.ToString()),
+                            new Claim("userFullName", $"{userDb.FirstName} {userDb.LastName}"),
+                        }
+                    )
+                };
+                SecurityToken token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+                return jwtSecurityTokenHandler.WriteToken(token);
         }
 
 
