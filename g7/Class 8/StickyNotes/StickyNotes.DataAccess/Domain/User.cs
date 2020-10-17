@@ -1,11 +1,16 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace StickyNotes.PresentationLayer.Responses
+namespace StickyNotes.DataAccess.Domain
 {
-    public class GetUserResponse
+    public partial class User
     {
+        public User()
+        {
+            Notes = new HashSet<Note>();
+        }
+
+        public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public string FirstName { get; set; }
@@ -13,8 +18,6 @@ namespace StickyNotes.PresentationLayer.Responses
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public string Token { get; set; }
-
-        public virtual ICollection<GetNoteResponse> Notes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }

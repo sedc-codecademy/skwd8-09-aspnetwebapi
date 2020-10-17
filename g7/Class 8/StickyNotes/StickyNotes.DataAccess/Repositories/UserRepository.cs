@@ -42,12 +42,13 @@ namespace StickyNotes.DataAccess.Repositories
             return user;
         }
 
-        public void Update(int userId)
+        public void Update(User entity)
         {
             User user = _context.Set<User>()
-                .Include(u => u.Notes)
-                .Single(u => u.Id == userId);
+               .Include(u => u.Notes)
+               .SingleOrDefault(u => u.Username == entity.Username);
 
+            user.Id = entity.Id;
             user.FirstName = entity.FirstName;
             user.LastName = entity.LastName;
             user.Username = entity.Username;

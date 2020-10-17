@@ -116,7 +116,7 @@ namespace StickyNotes.Services.Services
                 Password = null,
                 CreatedOn = user.CreatedOn,
                 Notes = null,
-                Token = token
+                Token = tokenHandler.WriteToken(token)
             };
 
             return userResponse;

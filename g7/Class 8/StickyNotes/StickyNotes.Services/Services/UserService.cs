@@ -26,30 +26,36 @@ namespace StickyNotes.Services.Services
             var usersResponse = _mapper.Map<List<User>, List<GetUserResponse>>(users);
             return usersResponse;
         }
-
         public GetUserResponse GetById(int id)
         {
             var user = _userRepository.GetById(id);
             var userResponse = _mapper.Map<User, GetUserResponse>(user);
             return userResponse;
         }
-
+        public List<GetUserResponse> GetUsersWithMostNotes()
+        {
+            var maximumNotes = _userRepository.GetAll().Select(u => u.Notes.Count).Max();
+            var usersWithMostNotes = _userRepository.GetAll().Where(u => u.Notes.Count == maximumNotes).ToList();
+            var response = _mapper.Map<List<User>, List<GetUserResponse>>(usersWithMostNotes);
+            return response;
+        }
         public List<GetUserResponse> GetUserswithSameUsernameLength(int length)
         {
             var users = _userRepository.GetAll().Where(u => u.Username.Length == length).ToList();
-            var usersResponse = Mapper.Map<List<User>, List<GetUserResponse>>(users);
+            var usersResponse = _mapper.Map<List<User>, List<GetUserResponse>>(users);
             return usersResponse;
         }
 
         public void CreateUser(GetUserResponse userResponse)
         {
-            var user = Mapper.Map<GetUserResponse, User>(userResponse);
+            userResponse.CreatedOn = DateTime.Now;
+            var user = _mapper.Map<GetUserResponse, User>(userResponse);
             _userRepository.Add(user);
             _userRepository.Save();
         }
         public void UpdateUser(GetUserResponse userResponse)
         {
-            var user = Mapper.Map<GetUserResponse, User>(userResponse);
+            var user = _mapper.Map<GetUserResponse, User>(userResponse);
             _userRepository.Update(user);
             _userRepository.Save();
         }
@@ -63,6 +69,5 @@ namespace StickyNotes.Services.Services
             _userRepository.Delete(user);
             _userRepository.Save();
         }
-
     }
 }

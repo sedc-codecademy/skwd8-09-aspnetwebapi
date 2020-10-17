@@ -1,6 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace StickyNotes.PresentationLayer.Responses
 {
@@ -12,8 +12,6 @@ namespace StickyNotes.PresentationLayer.Responses
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-
-        public string Token { get; set; }
 
         public virtual ICollection<GetNoteResponse> Notes { get; set; }
     }
